@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mario Fortress - MindAR</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    
+    <style>
+        #scanning-overlay {
+            display: flex; align-items: center; justify-content: center;
+            position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+            background: rgba(20, 20, 25, 0.9); z-index: 9995; color: white;
+            font-family: sans-serif; font-size: 1.2em; transition: opacity 0.5s;
+        }
+        #scanning-overlay.hidden { display: none; }
+    </style>
 </head>
-<body style="margin: 0; overflow: hidden;">
 
-    <a-scene mindar-image="imageTargetSrc: targets.mind; autoStart: true" 
-             embedded color-space="sRGB"
-             renderer="colorManagement: true"
+<body style="margin: 0; overflow: hidden;">
+    
+    <div id="scanning-overlay">
+        Завантаження AR-камери... Надайте дозвіл.
+    </div>
+
+    <a-scene mindar-image="imageTargetSrc: targets.mind; autoStart: true; uiLoading: no;" 
+             embedded color-space="sRGB" 
+             renderer="colorManagement: true, physicallyCorrectLights: true" 
              vr-mode-ui="enabled: false" 
              device-orientation-permission-ui="enabled: false">
-
+        
         <a-assets>
-            <img id="brick" src="https://cdn.jsdelivr.net/gh/aframevr/sample-assets/assets/images/bricks/brick_bump.jpg" crossorigin="anonymous">
+            <img id="brick" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/bricks/brick_diffuse.jpg" crossorigin="anonymous">
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex: 0">
-            <a-entity scale="0.2 0.2 0.2">
-
+            
+            <a-entity scale="0.08 0.08 0.08" rotation="90 0 0">
+                
                 <a-box position="0 2 0" width="8" height="4" depth="4" src="#brick"></a-box>
 
                 <a-cylinder position="-4 3 2" radius="1" height="6" src="#brick"></a-cylinder>
@@ -28,23 +46,40 @@
                 <a-cylinder position="-4 3 -2" radius="1" height="6" src="#brick"></a-cylinder>
                 <a-cylinder position="4 3 -2" radius="1" height="6" src="#brick"></a-cylinder>
 
-                <a-cone position="-4 7 2" radius-bottom="1.4" height="2" color="red"></a-cone>
-                <a-cone position="4 7 2" radius-bottom="1.4" height="2" color="red"></a-cone>
-                <a-cone position="-4 7 -2" radius-bottom="1.4" height="2" color="red"></a-cone>
-                <a-cone position="4 7 -2" radius-bottom="1.4" height="2" color="red"></a-cone>
+                <a-cone position="-4 6.5 2" radius-bottom="1.4" height="2" color="#b22222"></a-cone>
+                <a-cone position="4 6.5 2" radius-bottom="1.4" height="2" color="#b22222"></a-cone>
+                <a-cone position="-4 6.5 -2" radius-bottom="1.4" height="2" color="#b22222"></a-cone>
+                <a-cone position="4 6.5 -2" radius-bottom="1.4" height="2" color="#b22222"></a-cone>
 
-                <a-cylinder position="0 7 0" radius="0.05" height="6" color="gray"></a-cylinder>
+                <a-sphere position="-4 7.7 2" radius="0.4" color="#ffd700"></a-sphere>
+                <a-sphere position="4 7.7 2" radius="0.4" color="#ffd700"></a-sphere>
+                <a-sphere position="-4 7.7 -2" radius="0.4" color="#ffd700"></a-sphere>
+                <a-sphere position="4 7.7 -2" radius="0.4" color="#ffd700"></a-sphere>
 
-                <a-entity position="0 4 0" animation="property: position; from: 0 4 0; to: 0 9 0; dur: 4000">
-                    <a-plane width="4" height="1.5" color="red" position="2 0 0"
-                        animation="property: rotation; from: 0 0 -8; to: 0 0 8; dur: 500; dir: alternate; loop: true"></a-plane>
-                    <a-text value="Thank You Mario But Our Princess Is in Another Castle" width="5" align="center"
-                        color="white" position="2 0 0.1"></a-text>
+                <a-cylinder position="0 6 0" radius="0.1" height="8" color="silver"></a-cylinder>
+
+                <a-entity animation="property: position; from: 0 3 0; to: 0 8.5 0; dur: 5000; easing: linear">
+                    
+                    <a-plane position="1.6 0 0" width="3.2" height="1.6" color="white"
+                             animation="property: rotation; from: 0 -15 0; to: 0 15 0; dir: alternate; loop: true; dur: 400">
+                        
+                        <a-text value="Thank You Mario\nBut Our Princess\nIs in Another Castle" 
+                                color="black" align="center" width="4.5" position="0 0 0.1"></a-text>
+                    </a-plane>
+
                 </a-entity>
 
             </a-entity>
+
         </a-entity>
     </a-scene>
 
+    <script>
+        document.querySelector('a-scene').addEventListener("arReady", (event) => {
+            const overlay = document.getElementById('scanning-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.classList.add('hidden'), 500);
+        });
+    </script>
 </body>
 </html>
