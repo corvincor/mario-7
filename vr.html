@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mario Castle VR</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+</head>
+
+<body>
+
+    <a-scene>
+
+        <a-assets>
+            <img id="brick"
+                src="https://cdn.jsdelivr.net/gh/aframevr/sample-assets/assets/images/bricks/brick_bump.jpg">
+        </a-assets>
+
+        <a-plane rotation="-90 0 0" width="40" height="40" color="#7BC8A4"></a-plane>
+
+        <a-box position="0 2 -8" width="8" height="4" depth="4" src="#brick"></a-box>
+
+        <a-cylinder position="-4 3 -6" radius="1" height="6" src="#brick"></a-cylinder>
+        <a-cylinder position="4 3 -6" radius="1" height="6" src="#brick"></a-cylinder>
+        <a-cylinder position="-4 3 -10" radius="1" height="6" src="#brick"></a-cylinder>
+        <a-cylinder position="4 3 -10" radius="1" height="6" src="#brick"></a-cylinder>
+
+        <a-cone position="-4 7 -6" radius-bottom="1.4" radius-top="0" height="2" color="#AA0000"></a-cone>
+        <a-cone position="4 7 -6" radius-bottom="1.4" radius-top="0" height="2" color="#AA0000"></a-cone>
+        <a-cone position="-4 7 -10" radius-bottom="1.4" radius-top="0" height="2" color="#AA0000"></a-cone>
+        <a-cone position="4 7 -10" radius-bottom="1.4" radius-top="0" height="2" color="#AA0000"></a-cone>
+
+        <a-sphere position="-4 8 -6" radius="0.3"></a-sphere>
+        <a-sphere position="4 8 -6" radius="0.3"></a-sphere>
+        <a-sphere position="-4 8 -10" radius="0.3"></a-sphere>
+        <a-sphere position="4 8 -10" radius="0.3"></a-sphere>
+
+        <a-cylinder position="0 7 -8" radius="0.05" height="6" color="gray"></a-cylinder>
+
+        <a-entity position="0 4 -8" animation="property:position; from:0 4 -8; to:0 9 -8; dur:4000">
+
+            <a-plane width="4" height="1.5" color="red" position="2 0 0"
+                animation="property:rotation; from:0 0 -8; to:0 0 8; dur:500; dir:alternate; loop:true">
+            </a-plane>
+
+            <a-text value="Thank You Mario But Our Princess Is in Another Castle" color="white" width="4" align="center"
+                position="2 0 .1">
+            </a-text>
+
+        </a-entity>
+
+        <a-camera position="0 3 8"></a-camera>
+
+    </a-scene>
+
+</body>
+
+</html>
